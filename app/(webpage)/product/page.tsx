@@ -1,0 +1,1 @@
+// Archivo eliminado para evitar conflicto de rutas dinámicas
