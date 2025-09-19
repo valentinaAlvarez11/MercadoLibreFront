@@ -6,6 +6,7 @@ import ImageCarousel from "@/components/organisms/MercadoLibreCarrouselImages";
 import InitialCardsService from '@/components/organisms/InitialCardsService';
 import DailyDeal from '@/components/organisms/DailyDeal';
 import OffersCarousel from '@/components/organisms/OffersCarousel';
+import SubscriptionCard from '@/components/molecules/SubscriptionCard';
 
 const HomePageClient = () => {
   const [products, setProducts] = useState<ProductCardInfo[]>([]);
@@ -19,26 +20,26 @@ const HomePageClient = () => {
       try {
         const res = await fetch('http://localhost:3000/product');
         
-        if (!res.ok) {
-            const errorText = await res.text();
-            throw new Error(`Error ${res.status}: ${errorText.slice(0, 100)}...`);
-        }
+        if (!res.ok) {
+            const errorText = await res.text();
+            throw new Error(`Error ${res.status}: ${errorText.slice(0, 100)}...`);
+        }
 
         const apiResponse = await res.json();
-        
-        const productos = apiResponse.productos;
+        
+        const productos = apiResponse.productos;
 
-        if (!Array.isArray(productos)) {
-          throw new Error("La respuesta de la API no es un array de productos.");
-        }
+        if (!Array.isArray(productos)) {
+          throw new Error("La respuesta de la API no es un array de productos.");
+        }
 
         const mappedProducts: ProductCardInfo[] = productos.map((item: any) => ({
-            id: item.id || item._id, 
-            name: item.name,
-            price: `$${item.price.toLocaleString('es-CO')}`,
-            imageUrl: item.imageUrl,
-            rating: item.rating
-        }));
+            id: item.id || item._id, 
+            name: item.name,
+            price: `$${item.price.toLocaleString('es-CO')}`,
+            imageUrl: item.imageUrl,
+            rating: item.rating
+        }));
 
         setProducts(mappedProducts);
       } catch (err: any) {
@@ -51,7 +52,7 @@ const HomePageClient = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="bg-gray-100">
       {/* Carrousel ocupa todo el ancho */}
       <div className="relative w-full">
         <ImageCarousel />
@@ -72,9 +73,13 @@ const HomePageClient = () => {
                 <OffersCarousel products={products.slice(1, 10)} />
             </div>
         )}
-
-        {/* Eliminamos el grid de productos sobrantes */}
       </main>
+      
+      {/* Nuevo contenedor para la SubscriptionCard, fuera del <main> */}
+      <div className="max-w-[1200px] mx-auto px-4 mt-8">
+        <SubscriptionCard />
+      </div>
+
     </div>
   );
 };
