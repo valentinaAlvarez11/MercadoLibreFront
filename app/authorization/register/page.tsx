@@ -1,3 +1,4 @@
+// app/authorization/register/page.tsx
 "use client";
 
 import React, { useState } from "react";
@@ -19,7 +20,7 @@ const RegisterPage = () => {
     name: "",
     password: "",
     acceptSMS: false,
-    acceptTerms: true
+    acceptTerms: true,
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -27,9 +28,9 @@ const RegisterPage = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: type === "checkbox" ? checked : value
+      [name]: type === "checkbox" ? checked : value,
     }));
   };
 
@@ -39,23 +40,7 @@ const RegisterPage = () => {
     setError("");
 
     try {
-      // Simulación de llamada a la API
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      
-      // Aquí iría la llamada real al backend
-      // const res = await fetch("http://localhost:3000/register", {
-      //   method: "POST",
-      //   headers: { "Content-Type": "application/json" },
-      //   body: JSON.stringify(formData),
-      // });
-      
-      // if (res.ok) {
-      //   router.push("/");
-      // } else {
-      //   setError("Error en el registro");
-      // }
-      
-      // Simulación de registro exitoso
+      await new Promise((resolve) => setTimeout(resolve, 1500));
       console.log("Datos enviados:", formData);
       alert("Registro exitoso (simulado)");
     } catch (err) {
@@ -66,24 +51,22 @@ const RegisterPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
+    <div className="p-4 w-full flex items-center justify-center">
       <div className="bg-white rounded-sm shadow-sm w-full max-w-md">
         <div className="p-6 border-b border-gray-200">
           <h1 className="text-xl font-light text-center text-gray-800">
             Crea tu cuenta y compra con envíos gratis
           </h1>
         </div>
-        
-          <form
-            onSubmit={handleSubmit}
-            className="bg-white rounded-2xl shadow-md p-8 w-full max-w-md flex flex-col gap-4"
-          >
+        <form
+          onSubmit={handleSubmit}
+          className="bg-white rounded-2xl shadow-md p-8 w-full max-w-md flex flex-col gap-4"
+        >
           {error && (
             <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4 text-sm">
               {error}
             </div>
           )}
-          
           <div className="mb-4">
             <label className="block text-sm font-bold text-gray-700 mb-1">E-mail</label>
             <input
@@ -96,7 +79,6 @@ const RegisterPage = () => {
               className="w-full px-3 py-2 border border-gray-300 rounded-sm focus:outline-none focus:ring-1 focus:ring-blue-500"
             />
           </div>
-          
           <div className="mb-4">
             <label className="block text-sm font-bold text-gray-700 mb-1">Teléfono</label>
             <input
@@ -109,7 +91,6 @@ const RegisterPage = () => {
               className="w-full px-3 py-2 border border-gray-300 rounded-sm focus:outline-none focus:ring-1 focus:ring-blue-500"
             />
           </div>
-          
           <div className="mb-4">
             <label className="block text-sm font-bold text-gray-700 mb-1">Nombre</label>
             <input
@@ -121,7 +102,6 @@ const RegisterPage = () => {
               className="w-full px-3 py-2 border border-gray-300 rounded-sm focus:outline-none focus:ring-1 focus:ring-blue-500"
             />
           </div>
-          
           <div className="mb-6">
             <label className="block text-sm font-bold text-gray-700 mb-1">Contraseña</label>
             <input
@@ -133,7 +113,6 @@ const RegisterPage = () => {
               className="w-full px-3 py-2 border border-gray-300 rounded-sm focus:outline-none focus:ring-1 focus:ring-blue-500"
             />
           </div>
-          
           <div className="mb-4 flex items-start">
             <input
               type="checkbox"
@@ -147,7 +126,6 @@ const RegisterPage = () => {
               Acepto que me contacten por SMS y WhatsApp.
             </label>
           </div>
-          
           <div className="mb-6 flex items-start">
             <input
               type="checkbox"
@@ -162,7 +140,6 @@ const RegisterPage = () => {
               Al "Continuar", autorizo el uso de mis datos de acuerdo a la Declaración de privacidad y acepto los Términos y condiciones y la Autorización de tratamiento de datos.
             </label>
           </div>
-          
           <button
             type="submit"
             disabled={loading}
@@ -171,7 +148,6 @@ const RegisterPage = () => {
             {loading ? "Procesando..." : "Continuar"}
           </button>
         </form>
-        
         <div className="border-t border-gray-200 p-6 text-center">
           <p className="text-sm text-gray-600">
             ¿Ya tienes cuenta?{" "}

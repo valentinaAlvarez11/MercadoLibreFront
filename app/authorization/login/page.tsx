@@ -4,7 +4,7 @@ import React, { useState , FormEvent } from 'react';
 import { Metadata } from 'next';
 import { FcGoogle } from 'react-icons/fc';
 import Image from 'next/image';
-import mercadolibreLogo from '../assets/mercadolibre1.png';
+import mercadolibreLogo from '../../assets/mercadolibre1.png';
 
 const MercadolibreLogin = () => {
   const [email, setEmail] = useState('');
@@ -43,16 +43,6 @@ const MercadolibreLogin = () => {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-white text-sm font-sans">
-      <header className="fixed top-0 left-0 w-full bg-yellow-300 shadow-md p-3 z-10">
-        <div className="container mx-auto px-9">
-          <Image 
-            src={mercadolibreLogo} 
-            alt="Mercado Libre Logo" 
-            width={130} 
-            height={50} 
-          />
-        </div>
-      </header>
 
       <div className="flex justify-center items-center h-screen bg-white">
         {/* Contenedor de la izquierda para el título */}
@@ -78,7 +68,6 @@ const MercadolibreLogin = () => {
           </div>
         </div>
 
-        {/* Contenedor de la derecha para el formulario */}
         <div className="w-[470px] bg-white rounded-lg border border-gray-200 mb-35">
           <form onSubmit={handleSubmit} className="w-full p-8 pt-10">
             <div className="mb-4">
