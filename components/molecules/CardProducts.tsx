@@ -3,6 +3,7 @@ import React from 'react';
 import Link from 'next/link';
 
 // Interfaz para el tipo de datos que recibe la tarjeta
+// Aseguramos que el ID pueda ser un string o un número para la URL
 export interface ProductCardInfo {
   id: string;
   name: string;
@@ -29,11 +30,11 @@ interface CardProductsProps {
 const CardProducts: React.FC<CardProductsProps> = ({ product }) => {
   return (
     <Link href={`/product/${product.id}`} passHref>
-      <div className="bg-white rounded-lg shadow-md p-4 cursor-pointer hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1 w-[158px] h-[285px] flex flex-col">
+      <div className="bg-white rounded-lg shadow-md p-4 cursor-pointer hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1 w-[250px] h-[400px] overflow-hidden flex flex-col">
         <img
           src={product.imageUrl}
           alt={product.name}
-          className="w-full h-[160px] object-contain mb-4 rounded-md"
+          className="w-full h-[200px] object-contain mb-4 rounded-md"
         />
         <div className="flex flex-col space-y-2 flex-1">
           <h3 className="text-lg font-semibold text-gray-800 line-clamp-2">
