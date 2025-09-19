@@ -100,6 +100,16 @@ export default function CreateProductPage() {
 
         <label className="ml-label">Imagen (URL)</label>
         <input name="imageUrl" value={form.imageUrl} onChange={handleChange} required className="ml-input" />
+        {form.imageUrl && (
+          <div className="my-4 flex justify-center">
+            <img
+              src={form.imageUrl}
+              alt="Vista previa"
+              className="max-h-48 rounded shadow border"
+              onError={e => { e.currentTarget.style.display = 'none'; }}
+            />
+          </div>
+        )}
 
         <button type="submit" disabled={loading} className="ml-btn">
           {loading ? "Creando..." : "Crear Producto"}
