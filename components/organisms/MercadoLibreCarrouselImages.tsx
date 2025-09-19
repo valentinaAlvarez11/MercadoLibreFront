@@ -3,9 +3,11 @@ import { useEffect, useRef, useState } from 'react';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
 const images = [
-  'https://cdn.pixabay.com/photo/2016/11/22/22/39/golf-1850984_1280.jpg',
-  'https://cdn.pixabay.com/photo/2017/03/27/12/50/flower-2178507_1280.jpg',
-  'https://cdn.pixabay.com/photo/2017/03/27/13/55/controller-2178879_1280.jpg'
+  'https://http2.mlstatic.com/D_NQ_780092-MLA92793872437_092025-OO.webp',
+  'https://http2.mlstatic.com/D_NQ_937094-MLA92685969173_092025-OO.webp',
+  'https://http2.mlstatic.com/D_NQ_918026-MLA92686757067_092025-OO.webp',
+  'https://http2.mlstatic.com/D_NQ_950526-MLA92283896722_092025-OO.webp',
+  'https://http2.mlstatic.com/D_NQ_791707-MLA92284968360_092025-OO.webp'
 ];
 
 const ImageCarousel: React.FC = () => {
@@ -31,7 +33,7 @@ const ImageCarousel: React.FC = () => {
   }, [currentIndex]);
 
   return (
-    <div className="relative w-full h-[50vh] overflow-hidden">
+    <div className="relative w-full h-[70vh] overflow-hidden">
       {/* Fondo con transición */}
       <div
         className="w-full h-full bg-cover bg-center transition-all duration-700"
