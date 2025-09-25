@@ -1,10 +1,18 @@
+"use client";
 import Image from "next/image";
 import mercadolibreLogo from "@/app/assets/mercadolibre.png";
 import enviog from "@/app/assets/enviog.png";
 import { FaSearch, FaShoppingCart } from 'react-icons/fa';
+import { useCartStore } from '../../store/cartStore';
+import { useState } from 'react';
+import Cart from '../molecules/Cart';
 import { MdLocationOn } from 'react-icons/md';
 
 export default function HeaderComponent() {
+  const products = useCartStore((state) => state.products);
+  const [showCart, setShowCart] = useState(false);
+  const totalItems = products.reduce((acc, p) => acc + p.quantity, 0);
+
   return (
     <header className="bg-[#ffe600] w-full font-sans">
       {/* Primera fila: Logo, Buscador, Banners promocionales, Usuario */}
@@ -59,7 +67,22 @@ export default function HeaderComponent() {
             <a href="http://localhost:3001/register" className="text-[#333333] text-sm font-normal cursor-pointer">Crea tu cuenta</a>
             <a href="/login" className="text-[#333333] text-sm font-normal cursor-pointer">Ingresa</a>
             <a href="#" className="text-[#333333] text-sm font-normal cursor-pointer">Mis compras</a>
-            <FaShoppingCart className="text-[#333333] text-xl cursor-pointer" />
+            <div className="relative">
+              <FaShoppingCart
+                className="text-[#333333] text-xl cursor-pointer"
+                onClick={() => setShowCart((prev) => !prev)}
+              />
+              {totalItems > 0 && (
+                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full px-2 py-0.5">
+                  {totalItems}
+                </span>
+              )}
+              {showCart && (
+                <div className="absolute right-0 mt-2 z-50 bg-white border rounded shadow-lg min-w-[500px] max-w-[700px]">
+                  <Cart />
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>

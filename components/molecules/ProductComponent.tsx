@@ -1,5 +1,7 @@
 // components/molecules/ProductDetails.tsx
+"use client";
 import React from 'react';
+import { useCartStore } from '../../store/cartStore';
 // Podrías necesitar un componente de íconos para las estrellas,
 // pero por simplicidad usaremos un emoji o texto directo.
 
@@ -30,6 +32,32 @@ interface ProductDetailsProps {
 }
 
 const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
+  const addProduct = useCartStore((state) => state.addProduct);
+
+  // Convertir ProductInfo a CartProduct
+  const handleAddToCart = () => {
+    // Extraer id y precio correctamente
+    let id = product.name;
+    let price = 0;
+    // Si el nombre tiene un id, extráelo, si no, usa el nombre
+    if ((product as any).id) {
+      id = (product as any).id;
+    }
+    // Si el precio es string tipo "$123.45", extráelo correctamente
+    if (typeof product.price === 'string') {
+      const match = product.price.match(/\d+(\.\d+)?/);
+      price = match ? parseFloat(match[0]) : 0;
+    } else if (typeof product.price === 'number') {
+      price = product.price;
+    }
+    addProduct({
+      id,
+      name: product.name,
+      price,
+      quantity: 1,
+    });
+  };
+
   return (
     <div className="flex flex-col lg:flex-row bg-white p-4 lg:p-6 rounded-lg shadow-md max-w-7xl mx-auto">
       {/* SECCIÓN 1: IMAGEN DEL PRODUCTO (Izquierda) */}
@@ -75,7 +103,10 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
           <button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 rounded-md transition duration-200">
             Comprar ahora
           </button>
-          <button className="w-full border border-blue-600 text-blue-600 hover:bg-blue-50 py-3 rounded-md transition duration-200">
+          <button
+            className="w-full border border-blue-600 text-blue-600 hover:bg-blue-50 py-3 rounded-md transition duration-200"
+            onClick={handleAddToCart}
+          >
             Agregar al carrito
           </button>
         </div>

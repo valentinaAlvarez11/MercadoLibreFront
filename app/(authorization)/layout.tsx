@@ -30,7 +30,8 @@ export const metadata: Metadata = {
 };
 
 import Image from "next/image";
-import mercadolibreLogo from "../assets/mercadolibre1.png";
+// Use public folder path for Next.js images
+// import mercadolibreLogo from "../assets/mercadolibre1.png";
 
 export default function LoginLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -38,7 +39,7 @@ export default function LoginLayout({ children }: { children: React.ReactNode })
       <header className="fixed top-0 left-0 w-full bg-yellow-300 shadow-md p-3 z-10">
         <div className="container mx-auto px-9">
           <Image 
-            src={mercadolibreLogo} 
+            src="/mercadolibre1.png" 
             alt="Mercado Libre Logo" 
             width={130} 
             height={50} 
