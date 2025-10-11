@@ -63,7 +63,7 @@ const HomePageClient = () => {
       </div>
       {/* Espacio para que los cards no se superpongan con el contenido siguiente */}
       <div className="h-[200px]" />
-      <main className="container mx-auto pt-0 px-4">
+      <main className="display: flex place-items: center container mx-auto pt-0 px-4">
         {loading && <div className="text-center text-lg mt-8">Cargando productos...</div>}
         {error && <div className="text-center text-red-600 font-semibold mt-8">{error}</div>}
         

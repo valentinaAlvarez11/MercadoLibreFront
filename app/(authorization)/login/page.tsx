@@ -3,14 +3,15 @@
 import React, { useState , FormEvent } from 'react';
 import { Metadata } from 'next';
 import { FcGoogle } from 'react-icons/fc';
-import Image from 'next/image';
-import mercadolibreLogo from '../../assets/mercadolibre1.png';
+import { useRouter } from 'next/navigation'; // <-- ⭐️ IMPORTAR ROUTER
+import Cookies from 'js-cookie'; 
 
 const MercadolibreLogin = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
+  const router = useRouter();
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
