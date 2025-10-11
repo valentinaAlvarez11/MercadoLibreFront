@@ -15,32 +15,39 @@ const MercadolibreLogin = () => {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-
     setError(null);
     setSuccess(false);
 
     try {
-      const response = await fetch('http://localhost:3000/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, contraseña: password }),
-      });
+        const response = await fetch('http://localhost:3000/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email, contraseña: password }),
+        });
+        
+        const data = await response.json(); 
 
-      const data = await response.json();
+        if (response.ok) {
+            setSuccess(true);
+            console.log('Login exitoso:', data);
 
-      if (response.ok) {
-        setSuccess(true);
-        console.log('Login exitoso:', data);
-      } else {
-        setError(data.error);
-      }
+            const urlParams = new URLSearchParams(window.location.search);
+            const redirectTo = urlParams.get('redirect') || '/';
+                
+                // Redirigimos, y la próxima solicitud a 'redirectTo' incluirá la nueva cookie.
+            router.push(redirectTo); 
+                
+        } else {
+            setError(data.error || 'Credenciales incorrectas.');
+        }
     } catch (err) {
-      setError('No se pudo conectar con el servidor. Inténtalo de nuevo.');
-      console.error('Error de conexión:', err);
+        setError('No se pudo conectar con el servidor. Inténtalo de nuevo.');
+        console.error('Error de conexión:', err);
     }
   };
+
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-white text-sm font-sans">
