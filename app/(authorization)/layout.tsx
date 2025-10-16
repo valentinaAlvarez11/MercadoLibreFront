@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 
 export const metadata: Metadata = {
   title: 'Mercado Libre | Login',
@@ -29,17 +30,13 @@ export const metadata: Metadata = {
   },
 };
 
-import Image from "next/image";
-// Use public folder path for Next.js images
-// import mercadolibreLogo from "../assets/mercadolibre1.png";
-
 export default function LoginLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
       <header className="fixed top-0 left-0 w-full bg-yellow-300 shadow-md p-3 z-10">
         <div className="container mx-auto px-9">
           <Image 
-            src="/mercadolibre1.png" 
+            src="https://logodownload.org/wp-content/uploads/2018/10/mercado-libre-logo.png" 
             alt="Mercado Libre Logo" 
             width={130} 
             height={50} 
