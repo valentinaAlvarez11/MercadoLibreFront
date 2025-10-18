@@ -1,45 +1,14 @@
 "use client";
 
-import React, { useState , FormEvent } from 'react';
+import React, { FormEvent } from 'react';
 import { Metadata } from 'next';
 import { FcGoogle } from 'react-icons/fc';
 import Image from 'next/image';
 import mercadolibreLogo from '../../assets/mercadolibre1.png';
+import useLogin from '../../../hooks/useLogin';
 
 const MercadolibreLogin = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState(false);
-
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-
-    setError(null);
-    setSuccess(false);
-
-    try {
-      const response = await fetch('http://localhost:3000/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, contraseña: password }),
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        setSuccess(true);
-        console.log('Login exitoso:', data);
-      } else {
-        setError(data.error);
-      }
-    } catch (err) {
-      setError('No se pudo conectar con el servidor. Inténtalo de nuevo.');
-      console.error('Error de conexión:', err);
-    }
-  };
+  const { email, setEmail, password, setPassword, error, success, loading, handleSubmit } = useLogin();
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-white text-sm font-sans">
