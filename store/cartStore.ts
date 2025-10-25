@@ -1,4 +1,6 @@
+// store/cartStore.ts
 import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 
 export interface CartProduct {
   id: string;
@@ -14,30 +16,40 @@ interface CartState {
   updateQuantity: (id: string, quantity: number) => void;
 }
 
-export const useCartStore = create<CartState>((set) => ({
-  products: [],
-  addProduct: (product) =>
-    set((state) => {
-      const existing = state.products.find((p) => p.id === product.id);
-      if (existing) {
-        return {
-          products: state.products.map((p) =>
-            p.id === product.id
-              ? { ...p, quantity: p.quantity + product.quantity }
-              : p
-          ),
-        };
-      }
-      return { products: [...state.products, product] };
+export const useCartStore = create<CartState>()(
+  persist(
+    (set, get) => ({
+      products: [],
+
+      addProduct: (product) => {
+        const state = get();
+        const existing = state.products.find((p) => p.id === product.id);
+        const updated = existing
+          ? state.products.map((p) =>
+              p.id === product.id
+                ? { ...p, quantity: p.quantity + product.quantity }
+                : p
+            )
+          : [...state.products, product];
+
+        set({ products: updated });
+      },
+
+      removeProduct: (id) => {
+        const updated = get().products.filter((p) => p.id !== id);
+        set({ products: updated });
+      },
+
+      updateQuantity: (id, quantity) => {
+        const updated = get().products.map((p) =>
+          p.id === id ? { ...p, quantity } : p
+        );
+        set({ products: updated });
+      },
     }),
-  removeProduct: (id) =>
-    set((state) => ({
-      products: state.products.filter((p) => p.id !== id),
-    })),
-  updateQuantity: (id, quantity) =>
-    set((state) => ({
-      products: state.products.map((p) =>
-        p.id === id ? { ...p, quantity } : p
-      ),
-    })),
-}));
+    {
+      name: 'cart', 
+      partialize: (state) => ({ products: state.products }), 
+    }
+  )
+);

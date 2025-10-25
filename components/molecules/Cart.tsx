@@ -1,12 +1,42 @@
-import React from 'react';
+"use client";
+import React, { useEffect } from 'react';
 import { useCartStore } from '../../store/cartStore';
 
 const Cart: React.FC = () => {
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const hydrate = () => {
+      try {
+        const raw = localStorage.getItem('cart');
+        if (!raw) return;
+        const parsed = JSON.parse(raw);
+        if (Array.isArray(parsed)) {
+          useCartStore.setState({ products: parsed });
+        }
+      } catch (err) {
+        console.error('No se pudo hidratar el carrito desde localStorage:', err);
+      }
+    };
+
+    hydrate();
+
+    const onStorage = (e: StorageEvent) => {
+      if (e.key === 'cart') {
+        hydrate();
+      }
+    };
+    window.addEventListener('storage', onStorage);
+
+    return () => {
+      window.removeEventListener('storage', onStorage);
+    };
+  }, []);
+
   const products = useCartStore((state) => state.products);
   const removeProduct = useCartStore((state) => state.removeProduct);
   const updateQuantity = useCartStore((state) => state.updateQuantity);
 
-  // Funciones para incrementar y decrementar cantidad
   const increment = (id: string, current: number) => {
     updateQuantity(id, current + 1);
   };
@@ -56,8 +86,12 @@ const Cart: React.FC = () => {
                     </button>
                   </div>
                 </td>
-                <td className="px-2 py-2 text-right text-base">{typeof product.price === 'number' ? `$${product.price.toFixed(2)}` : '$0.00'}</td>
-                <td className="px-2 py-2 text-right text-base">{typeof product.price === 'number' ? `$${(product.price * product.quantity).toFixed(2)}` : '$0.00'}</td>
+                <td className="px-2 py-2 text-right text-base">
+                  {typeof product.price === 'number' ? `$${product.price.toFixed(2)}` : '$0.00'}
+                </td>
+                <td className="px-2 py-2 text-right text-base">
+                  {typeof product.price === 'number' ? `$${(product.price * product.quantity).toFixed(2)}` : '$0.00'}
+                </td>
                 <td className="px-2 py-2 text-center">
                   <button
                     className="text-red-500 hover:underline font-semibold"
@@ -71,7 +105,7 @@ const Cart: React.FC = () => {
           </tbody>
         </table>
       )}
-  <div className="font-bold text-lg">Total: ${total.toFixed(2)}</div>
+      <div className="font-bold text-lg">Total: ${total.toFixed(2)}</div>
     </div>
   );
 };
