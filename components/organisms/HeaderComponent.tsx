@@ -1,7 +1,5 @@
 "use client";
 import Image from "next/image";
-import mercadolibreLogo from "@/app/assets/mercadolibre.png";
-import enviog from "@/app/assets/enviog.png";
 import { FaSearch, FaShoppingCart } from 'react-icons/fa';
 import { useCartStore } from '../../store/cartStore';
 import { useState } from 'react';

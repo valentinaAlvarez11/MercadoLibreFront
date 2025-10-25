@@ -1,7 +1,15 @@
-import { apiFetch } from "./singletonFetch"
+import { apiFetch } from "./singletonFetch";
+import { LoginDTO } from "@/interfaces/login";
+import { RegisterFormData } from "@/interfaces/register";
 
-import { LoginDTO } from "@/interfaces/login"
+class AuthService {
+  async login(body: LoginDTO) {
+    return apiFetch('/login', 'POST', body);
+  }
 
-export const loginService = (body: LoginDTO) => {
-  return apiFetch('/auth/login', 'POST', body)
+  async register(data: RegisterFormData) {
+    return apiFetch('/register', 'POST', data);
+  }
 }
+
+export const authService = new AuthService();
