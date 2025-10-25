@@ -8,7 +8,6 @@ export const metadata: Metadata = {
   keywords: ['Mercado Libre', 'ecommerce', 'compras online', 'ofertas', 'envíos gratis'],
 };
 
-// Este componente ahora es un Server Component
 export default function Page() {
   return (
     <HomePageClient />
