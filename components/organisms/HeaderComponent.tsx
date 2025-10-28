@@ -1,15 +1,9 @@
 "use client";
-import Image from "next/image";
 import { FaSearch, FaShoppingCart } from 'react-icons/fa';
-import { useCartStore } from '../../store/cartStore';
-import { useState } from 'react';
-import Cart from '../molecules/Cart';
+import Link from 'next/link';
 import { MdLocationOn } from 'react-icons/md';
 
 export default function HeaderComponent() {
-  const products = useCartStore((state) => state.products);
-  const [showCart, setShowCart] = useState(false);
-  const totalItems = products.reduce((acc, p) => acc + p.quantity, 0);
 
   return (
     <header className="bg-[#ffe600] w-full font-sans">
@@ -19,7 +13,12 @@ export default function HeaderComponent() {
         <div className="flex flex-col items-start">
           {/* Logo */}
           <div className="flex items-center">
-            <Image src="https://logodownload.org/wp-content/uploads/2018/10/mercado-libre-logo.png" alt="mercado libre" width={140} height={50} />
+            <img 
+              src="https://logodownload.org/wp-content/uploads/2018/10/mercado-libre-logo.png" 
+              alt="mercado libre" 
+              width={140} 
+              height={50} 
+            />
           </div>
           {/* Ubicación */}
           <div className="flex items-center mt-2">
@@ -66,20 +65,13 @@ export default function HeaderComponent() {
             <a href="/login" className="text-[#333333] text-sm font-normal cursor-pointer">Ingresa</a>
             <a href="#" className="text-[#333333] text-sm font-normal cursor-pointer">Mis compras</a>
             <div className="relative">
-              <FaShoppingCart
-                className="text-[#333333] text-xl cursor-pointer"
-                onClick={() => setShowCart((prev) => !prev)}
-              />
-              {totalItems > 0 && (
-                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full px-2 py-0.5">
-                  {totalItems}
-                </span>
-              )}
-              {showCart && (
-                <div className="absolute right-0 mt-2 z-50 bg-white border rounded shadow-lg min-w-[500px] max-w-[700px]">
-                  <Cart />
-                </div>
-              )}
+              {/* Usamos <Link> con el href directo */}
+              <Link href="/cart" passHref className="flex items-center">
+                  {/* El ícono está DENTRO del Link, lo hace clickable */}
+                  <FaShoppingCart
+                      className="text-[#333333] text-xl cursor-pointer"
+                  />
+              </Link>
             </div>
           </div>
         </div>
