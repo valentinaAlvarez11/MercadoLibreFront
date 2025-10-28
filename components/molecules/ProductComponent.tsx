@@ -2,19 +2,8 @@
 "use client";
 import React from 'react';
 import { useCartStore } from '../../store/cartStore';
-// Podrías necesitar un componente de íconos para las estrellas,
-// pero por simplicidad usaremos un emoji o texto directo.
+import { ProductInfo } from '@/interfaces/product';
 
-// Interfaz para definir el tipo de datos del producto
-export interface ProductInfo {
-  name: string;
-  price: string;
-  rating: number;
-  description: string[];
-  imageUrl: string;
-}
-
-// Función para generar las estrellas visuales
 const getStars = (rating: number) => {
   const fullStars = Math.floor(rating);
   const stars = '★'.repeat(fullStars) + '☆'.repeat(5 - fullStars);

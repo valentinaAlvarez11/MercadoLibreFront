@@ -1,9 +1,8 @@
-// components/molecules/CartProductItem.tsx (Ajustado)
-import { CartProduct } from '@/interfaces/cart'; 
-import { FaPlus, FaMinus } from 'react-icons/fa';
+// components/molecules/CartProductItem.tsx
+import { CartProduct } from '@/interfaces/product'; 
 
 interface CartProductItemProps {
-  item: CartProduct; // 👈 Tipado correcto
+  item: CartProduct;
   onRemove: () => void;
   onIncrease: () => void;
   onDecrease: () => void;
@@ -14,11 +13,9 @@ export default function CartProductItem({ item, onRemove, onIncrease, onDecrease
   
   return (
     <div className="flex p-4 border rounded-lg bg-white shadow-sm items-start">
-      {/* Checkbox de Producto (como en el mockup) */}
-      
       <div className="flex-shrink-0 mr-4">
         <img 
-          src={item.imageUrl || '/placeholder.jpg'} 
+          src={item.imageUrl} 
           alt={item.name} 
           width={80}
           height={80} 
