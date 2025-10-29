@@ -17,9 +17,9 @@ export default function WebpageLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <main>
+    <>
       <HeaderComponent />
       {children}
-    </main>
+    </>
   );
 }

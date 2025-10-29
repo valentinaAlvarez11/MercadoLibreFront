@@ -6,7 +6,8 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import type { RegisterFormData } from "@/interfaces/register";
-import { authService } from "@/libs/authService"; // asumes que existe
+import { authService } from "@/libs/authService";
+import { useAuthStore } from "@/store/authStore";
 
 // Schema (igual que antes)
 const registerSchema = z.object({
@@ -26,6 +27,7 @@ interface UseRegisterFormProps {
 
 export default function useRegisterForm({ onSuccess }: UseRegisterFormProps = {}) {
   const [serverError, setServerError] = useState<string | null>(null);
+  const { login } = useAuthStore();
 
   const form = useForm<RegisterFormData>({
     resolver: zodResolver(registerSchema),
@@ -43,7 +45,13 @@ export default function useRegisterForm({ onSuccess }: UseRegisterFormProps = {}
   const submit = async (data: RegisterFormData) => {
     try {
       setServerError(null);
-      await authService.register(data);
+      const response = await authService.register(data);
+      
+      // Guardar en el store con los roles
+      if (response.usuario) {
+        login(response.usuario);
+      }
+      
       onSuccess?.(data);
     } catch (err) {
       const message = err instanceof Error ? err.message : "Error en el registro";

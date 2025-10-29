@@ -7,6 +7,7 @@ import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { authService } from "@/libs/authService";
 import type { LoginDTO } from "@/interfaces/login";
+import { useAuthStore } from "@/store/authStore";
 
 const loginSchema = z.object({
   email: z.string().email("Correo electrónico inválido"),
@@ -17,6 +18,7 @@ export type LoginFormData = z.infer<typeof loginSchema>;
 
 export default function useLoginForm({ onSuccess }: { onSuccess?: () => void } = {}) {
   const [serverError, setServerError] = useState<string | null>(null);
+  const { login } = useAuthStore();
 
   const form = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
@@ -28,10 +30,15 @@ export default function useLoginForm({ onSuccess }: { onSuccess?: () => void } =
     try {
       setServerError(null);
 
-      // mapear email -> user para cumplir LoginDTO
-      const payload: LoginDTO = { user: data.email, password: data.password };
+      const payload: LoginDTO = { 
+        email: data.email, 
+        contraseña: data.password 
+      };
 
-      await authService.login(payload);
+      const response = await authService.login(payload);
+      
+      // Guardar en el store
+      login(response.usuario);
 
       onSuccess?.();
       form.reset();

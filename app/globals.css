@@ -103,5 +103,16 @@
 .ml-message-error {
 	color: #e53935;
 }
+
+/* Reset global margins and padding */
 @import "tailwindcss";
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
 
