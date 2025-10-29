@@ -1,6 +1,7 @@
 // components/organisms/DailyDeal.tsx
 import React from 'react';
-import CardProducts, { ProductCardInfo } from '../molecules/CardProducts';
+import CardProducts from '../molecules/CardProducts';
+import { ProductCardInfo } from '@/interfaces/product';
 
 interface DailyDealProps {
   product: ProductCardInfo;
