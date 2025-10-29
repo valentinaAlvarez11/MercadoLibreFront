@@ -8,20 +8,16 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { authService } from "@/libs/authService";
 import type { LoginDTO } from "@/interfaces/login";
 import { useAuthStore } from "@/store/authStore";
+import { loginScheme } from "@/schemas/login";
 
-const loginSchema = z.object({
-  email: z.string().email("Correo electrónico inválido"),
-  password: z.string().min(1, "La contraseña es obligatoria"),
-});
-
-export type LoginFormData = z.infer<typeof loginSchema>;
+export type LoginFormData = z.infer<typeof loginScheme>;
 
 export default function useLoginForm({ onSuccess }: { onSuccess?: () => void } = {}) {
   const [serverError, setServerError] = useState<string | null>(null);
   const { login } = useAuthStore();
 
   const form = useForm<LoginFormData>({
-    resolver: zodResolver(loginSchema),
+    resolver: zodResolver(loginScheme),
     defaultValues: { email: "", password: "" },
     mode: "onSubmit",
   });

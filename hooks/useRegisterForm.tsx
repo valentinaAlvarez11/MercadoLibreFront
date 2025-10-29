@@ -8,18 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import type { RegisterFormData } from "@/interfaces/register";
 import { authService } from "@/libs/authService";
 import { useAuthStore } from "@/store/authStore";
-
-// Schema (igual que antes)
-const registerSchema = z.object({
-  email: z.string().email("Correo electrónico inválido"),
-  phone: z.string().min(10, "Teléfono inválido"),
-  name: z.string().min(2, "El nombre debe tener al menos 2 caracteres"),
-  password: z.string().min(6, "La contraseña debe tener al menos 6 caracteres"),
-  acceptSMS: z.boolean(),
-  acceptTerms: z.boolean().refine((val) => val === true, {
-    message: "Debes aceptar los términos y condiciones",
-  }),
-});
+import { registerSchema } from "@/schemas/register";
 
 interface UseRegisterFormProps {
   onSuccess?: (data: RegisterFormData) => void;
