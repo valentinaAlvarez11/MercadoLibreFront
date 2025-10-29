@@ -23,6 +23,7 @@ export const apiFetch = async (endpoint: string, method: methods, body?: any) =>
       "Content-Type": "application/json",
       Accept: "application/json",
     },
+    credentials: "include",
   };
 
   if (method === "POST" || method === "PUT") headerOptions.body = JSON.stringify(body);

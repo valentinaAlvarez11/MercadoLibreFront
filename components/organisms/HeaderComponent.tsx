@@ -82,12 +82,12 @@ export default function HeaderComponent() {
 
           {/* Links de navegación */}
           <div className="flex items-center gap-6">
-            <div className="flex items-center gap-1 cursor-pointer">
+          <Link href="/categorias" className="flex items-center gap-1 cursor-pointer">
               <span className="text-[#333333] text-sm font-normal">Categorías</span>
               <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M1 1.5L6 6.5L11 1.5" stroke="#333333" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
-            </div>
+            </Link>
             <Link href="/ofertas" className="text-[#333333] text-sm font-normal hover:text-blue-600 transition-colors">Ofertas</Link>
             {isLoggedIn && user ? (
               <Link href="/cupones" className="text-[#333333] text-sm font-normal hover:text-blue-600 transition-colors">Cupones</Link>

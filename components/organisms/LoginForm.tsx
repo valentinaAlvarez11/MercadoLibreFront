@@ -4,15 +4,17 @@
 import React from "react";
 import Link from "next/link";
 import { FcGoogle } from "react-icons/fc";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import useLoginForm from "@/hooks/useLoginForm";
 import Input from "@/components/atoms/InputAuth";
 import Button from "@/components/atoms/ButtonAuth";
 
 export default function LoginForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const next = searchParams?.get("next");
   const { register, handleSubmit, formState, submit, serverError } = useLoginForm({
-    onSuccess: () => router.push("/"), // redirige al home o donde quieras
+    onSuccess: () => router.push(next || "/"),
   });
 
   const { errors, isSubmitting } = formState;
