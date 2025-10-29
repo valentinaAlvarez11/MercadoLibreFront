@@ -77,7 +77,7 @@ export default function UserDropdown({ isOpen, onClose }: UserDropdownProps) {
           <a href="#" className="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100 transition-colors">
             Compras
           </a>
-          <a href="/favoritos" className="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100 transition-colors">
+          <a onClick={() => router.push('/favoritos')} className="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100 transition-colors">
             Favoritos
           </a>
           <a href="#" className="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100 transition-colors">
