@@ -33,6 +33,8 @@ export default function DeliveryReviewComponent() {
     ? `Retiro en ${pickupLocation}`
     : `Envío a ${deliveryAddress.split(' - ')[0]}`;
 
+  const firstProduct = products[0];
+
   return (
     <div className="min-h-screen bg-gray-100">
       <div className="max-w-7xl mx-auto px-4 py-6">
@@ -50,8 +52,8 @@ export default function DeliveryReviewComponent() {
               </div>
               
               {/* Tarjeta de opción de envío */}
-              <div className="border border-gray-200 rounded-lg p-4 mb-6">
-                <div className="flex items-center justify-between">
+              <div className="border border-gray-200 rounded-lg p-5 mb-6">
+                <div className="flex items-start justify-between gap-6">
                   <div className="flex items-center gap-4">
                     {/* Información de envío */}
                     <div className="flex-1">
@@ -78,16 +80,24 @@ export default function DeliveryReviewComponent() {
                       </div>
                     </div>
                     
-                    {/* Imagen del producto */}
-                    <div className="flex-shrink-0">
-                      <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-2">
-                        <img
-                          src="https://http2.mlstatic.com/D_NQ_NP_2X_875158-MCO93938418234_102025-F.webp"
-                          alt="Producto"
-                          className="w-12 h-12 object-contain rounded-full"
-                        />
-                      </div>
-                      <div className="text-xs text-center text-gray-600 font-medium">LECHE</div>
+                    {/* Lista de productos del carrito */}
+                    <div className="flex-shrink-0 ml-auto mr-2">
+                      {products.length > 0 ? (
+                        <div className="flex flex-wrap justify-end gap-4 max-w-xl">
+                          {products.map((p) => (
+                            <div key={p.id} className="flex flex-col items-center w-20">
+                              <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center overflow-hidden">
+                                <img src={p.imageUrl} alt={p.name} className="w-12 h-12 object-contain rounded-full" />
+                              </div>
+                              <div className="text-[10px] text-center text-gray-600 font-medium line-clamp-2 mt-1">
+                                {p.name}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      ) : (
+                        <div className="text-xs text-gray-500">Sin productos</div>
+                      )}
                     </div>
                     
                     {/* Costo de envío */}
