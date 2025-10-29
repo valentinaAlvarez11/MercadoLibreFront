@@ -88,14 +88,22 @@ export default function HeaderComponent() {
                 <path d="M1 1.5L6 6.5L11 1.5" stroke="#333333" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
             </div>
-            <span className="text-[#333333] text-sm font-normal cursor-pointer">Ofertas</span>
-            <span className="text-[#333333] text-sm font-normal cursor-pointer">Cupones</span>
-            <div className="flex flex-col items-center cursor-pointer relative">
+            <Link href="/ofertas" className="text-[#333333] text-sm font-normal hover:text-blue-600 transition-colors">Ofertas</Link>
+            {isLoggedIn && user ? (
+              <Link href="/cupones" className="text-[#333333] text-sm font-normal hover:text-blue-600 transition-colors">Cupones</Link>
+            ) : (
+              <Link href="/login" className="text-[#333333] text-sm font-normal hover:text-blue-600 transition-colors">Cupones</Link>
+            )}
+            <Link href="/supermercado" className="flex flex-col items-center cursor-pointer relative hover:text-blue-600 transition-colors">
               <div className="bg-[#3483FA] text-white text-xs px-2 py-0.5 rounded-full mb-1">NUEVO</div>
               <span className="text-[#333333] text-sm font-normal">Supermercado</span>
-            </div>
+            </Link>
             <span className="text-[#333333] text-sm font-normal cursor-pointer">Moda</span>
-            <span className="text-[#333333] text-sm font-normal cursor-pointer">Vender</span>
+            {isLoggedIn && user ? (
+              <Link href="/vender" className="text-[#333333] text-sm font-normal hover:text-blue-600 transition-colors">Vender</Link>
+            ) : (
+              <Link href="/login" className="text-[#333333] text-sm font-normal hover:text-blue-600 transition-colors">Vender</Link>
+            )}
             <span className="text-[#333333] text-sm font-normal cursor-pointer">Ayuda / PQR</span>
           </div>
 
@@ -105,9 +113,10 @@ export default function HeaderComponent() {
               <>
                 <div className="flex items-center gap-2 relative">
                   <Avatar name={user.nombre} size="md" />
-                  <button onClick={() => setShowUserMenu(!showUserMenu)}>
-                    <MenuItemWithArrow text={user.nombre} />
-                  </button>
+                  <MenuItemWithArrow 
+                    text={user.nombre} 
+                    onClick={() => setShowUserMenu(!showUserMenu)}
+                  />
                   <UserDropdown isOpen={showUserMenu} onClose={() => setShowUserMenu(false)} />
                 </div>
                 

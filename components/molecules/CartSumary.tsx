@@ -1,48 +1,56 @@
-// components/molecules/CartSummary.tsx (Ajustado)
+// components/molecules/CartSummary.tsx
+import { useRouter } from 'next/navigation';
 
 interface CartSummaryProps {
   subtotal: number;
   total: number;
+  totalQuantity: number;
 }
 
-export default function CartSummary({ subtotal, total }: CartSummaryProps) {
+export default function CartSummary({ subtotal, total, totalQuantity }: CartSummaryProps) {
+  const router = useRouter();
   const finalTotal = subtotal; 
   const formatCurrency = (amount: number) => `$${amount.toLocaleString('es-CO')}`;
   
+  const handleContinuePurchase = () => {
+    router.push('/entrega');
+  };
+  
   return (
     <div className="bg-white p-6 rounded-lg shadow-lg border">
-      <h2 className="text-xl font-bold mb-4">Resumen de compra</h2>
+      <h2 className="text-lg font-bold mb-4">Resumen de compra</h2>
       
       <div className="space-y-3">
-        {/* Fila Producto */}
-        <div className="flex justify-between text-base">
-          <span>Producto</span>
-          <span className="font-normal">{formatCurrency(subtotal)}</span>
+        {/* Fila Productos */}
+        <div className="flex justify-between text-sm">
+          <span>Productos ({totalQuantity})</span>
+          <span className="font-medium">{formatCurrency(subtotal)}</span>
         </div>
         
-        <div className="flex justify-between text-base mb-4">
+        {/* Fila Envío */}
+        <div className="flex justify-between text-sm">
           <span>Envío</span>
-          <span className="font-normal">A calcular</span>
+          <span className="font-semibold text-green-600">Gratis</span>
         </div>
         
-        {/* Ingresar Código de Cupón */}
-        <div className="border-b border-dashed pb-4">
-          <button className="text-blue-600 hover:text-blue-800 text-sm">
-            Ingresar código de cupón
-          </button>
+        {/* Cupones */}
+        <div className="border-b border-gray-200 pb-3">
+          <a href="#" className="text-blue-600 hover:text-blue-800 text-sm font-medium">
+            Cupones
+          </a>
         </div>
       </div>
 
       {/* Total */}
-      <div className="pt-4 flex justify-between items-center text-xl font-medium">
+      <div className="pt-4 flex justify-between items-center text-lg font-bold">
         <span>Total</span>
         <span>{formatCurrency(finalTotal)}</span> 
       </div>
 
       {/* Botón de Compra */}
       <button 
-        className="w-full bg-blue-600 text-white py-3 mt-6 rounded-lg font-bold hover:bg-blue-700 transition-colors shadow-md"
-        onClick={() => alert('Procediendo al pago...')}
+        className="w-full bg-blue-600 text-white py-3 mt-6 rounded-lg font-semibold hover:bg-blue-700 transition-colors shadow-md"
+        onClick={handleContinuePurchase}
       >
         Continuar compra
       </button>
