@@ -1,16 +1,7 @@
 // components/molecules/CardProducts.tsx
 import React from 'react';
 import Link from 'next/link';
-
-// Interfaz para el tipo de datos que recibe la tarjeta
-// Aseguramos que el ID pueda ser un string o un número para la URL
-export interface ProductCardInfo {
-  id: string;
-  name: string;
-  price: string;
-  imageUrl: string;
-  rating: number;
-}
+import { ProductCardInfo } from '@/interfaces/product';
 
 const getStars = (rating: number) => {
   const fullStars = Math.floor(rating);
