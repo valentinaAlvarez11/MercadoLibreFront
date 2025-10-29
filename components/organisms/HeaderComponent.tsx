@@ -25,12 +25,14 @@ export default function HeaderComponent() {
         <div className="flex items-center justify-between py-4">
           {/* Logo */}
           <div className="flex items-center">
-            <img 
-              src="https://logodownload.org/wp-content/uploads/2018/10/mercado-libre-logo.png" 
-              alt="mercado libre" 
-              width={140} 
-              height={50} 
-            />
+            <Link href="/">
+              <img 
+                src="https://logodownload.org/wp-content/uploads/2018/10/mercado-libre-logo.png" 
+                alt="mercado libre" 
+                width={140} 
+                height={50} 
+              />
+            </Link>
           </div>
 
           {/* Buscador */}
