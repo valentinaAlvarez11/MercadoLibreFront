@@ -2,16 +2,11 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: 'Mercado Libre | Detalle de Producto',
-  description: 'Consulta la información, características y precio de este producto en Mercado Libre Colombia. Compra fácil y seguro.',
-  keywords: ['mercado libre', 'producto', 'detalle', 'comprar', 'precio', 'características', 'envío gratis'],
-  alternates: {
-    canonical: 'http://localhost:3001/product/id',
-  },
+  description: 'Consulta información y precio del producto. Compra fácil y segura.',
   openGraph: {
     title: 'Mercado Libre | Detalle de Producto',
-    description: 'Consulta la información, características y precio de este producto en Mercado Libre Colombia. Compra fácil y seguro.',
+    description: 'Consulta información y precio del producto. Compra fácil y segura.',
     url: 'http://localhost:3001/product/id',
-    siteName: 'Mercado Libre',
     images: [
       {
         url: 'https://http2.mlstatic.com/D_NQ_NP_2X_601857-MLA5495309220_042023-F.webp',
@@ -20,15 +15,6 @@ export const metadata: Metadata = {
         alt: 'Mercado Libre detalle producto',
       },
     ],
-    locale: 'es_CO',
-    type: 'website',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Mercado Libre | Detalle de Producto',
-    description: 'Consulta la información, características y precio de este producto en Mercado Libre Colombia. Compra fácil y seguro.',
-    images: ['https://http2.mlstatic.com/D_NQ_NP_2X_601857-MLA5495309220_042023-F.webp'],
-    site: '@mercadolibre',
   },
 };
 

@@ -1,7 +1,7 @@
 // app/(webpage)/home/page.tsx
 'use client';
 import { useState, useEffect } from 'react';
-import CardProducts, { ProductCardInfo } from '../../../components/molecules/CardProducts';
+import type { ProductCardInfo } from '@/interfaces/product';
 import ImageCarousel from "@/components/organisms/MercadoLibreCarrouselImages";
 import InitialCardsService from '@/components/organisms/InitialCardsService';
 import DailyDeal from '@/components/organisms/DailyDeal';

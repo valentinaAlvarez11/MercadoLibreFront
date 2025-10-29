@@ -2,7 +2,8 @@
 // app/(webpage)/product/[id]/page.tsx
 import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import ProductDetails, { ProductInfo } from '../../../../components/molecules/ProductComponent';
+import ProductDetails from '../../../../components/molecules/ProductComponent';
+import type { ProductInfo } from '@/interfaces/product';
 
 const ProductPage = () => {
   const params = useParams();

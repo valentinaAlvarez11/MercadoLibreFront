@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import HeaderComponent from "@/components/organisms/HeaderComponent";
+import { LocationProvider } from "@/context/LocationContext";
+import LocationSelectorModal from "@/components/organisms/LocationSelectorModal";
 
 export const metadata: Metadata = {
   title: "Mercado Libre | Inicio",
@@ -17,9 +19,10 @@ export default function WebpageLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <>
+    <LocationProvider>
       <HeaderComponent />
+      <LocationSelectorModal />
       {children}
-    </>
+    </LocationProvider>
   );
 }
