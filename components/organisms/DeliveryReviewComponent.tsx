@@ -2,6 +2,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 import { useCartStore } from "@/store/cartStore";
 import { useDeliveryStore } from "@/store/deliveryStore";
 import { FaMapMarkerAlt, FaBolt } from "react-icons/fa";
@@ -10,6 +11,7 @@ export default function DeliveryReviewComponent() {
   const { products } = useCartStore();
   const { selectedOption, deliveryAddress, pickupLocation, pickupAddress, pickupDistance } = useDeliveryStore();
   const [selectedDate, setSelectedDate] = useState("jueves");
+  const router = useRouter();
 
   // Calcular totales
   const subtotal = products.reduce((acc, item) => acc + (item.price * item.quantity), 0);
@@ -19,8 +21,7 @@ export default function DeliveryReviewComponent() {
   const formatCurrency = (amount: number) => `$${amount.toLocaleString('es-CO')}`;
 
   const handleContinue = () => {
-    // Aquí se podría navegar a la siguiente página del proceso de compra
-    alert(`Continuando con entrega el ${selectedDate}`);
+    router.push("/pago");
   };
 
   // Determinar el contenido según la opción seleccionada
