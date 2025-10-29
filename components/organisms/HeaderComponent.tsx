@@ -107,7 +107,7 @@ export default function HeaderComponent() {
               <div className="bg-[#3483FA] text-white text-xs px-2 py-0.5 rounded-full mb-1">NUEVO</div>
               <span className="text-[#333333] text-sm font-normal">Supermercado</span>
             </Link>
-            <span className="text-[#333333] text-sm font-normal cursor-pointer">Moda</span>
+            <Link href="/moda" className="text-[#333333] text-sm font-normal hover:text-blue-600 transition-colors">Moda</Link>
             {isLoggedIn && user ? (
               <Link href="/vender" className="text-[#333333] text-sm font-normal hover:text-blue-600 transition-colors">Vender</Link>
             ) : (
