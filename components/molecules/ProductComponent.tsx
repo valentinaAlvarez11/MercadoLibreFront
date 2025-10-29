@@ -44,6 +44,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
       name: product.name,
       price,
       quantity: 1,
+      imageUrl: product.imageUrl || "/mercadolibre.png",
     });
   };
 

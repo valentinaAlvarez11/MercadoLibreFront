@@ -28,7 +28,7 @@ export const useCartStore = create<CartState>()(
         // El producto en el store DEBE tener imageUrl. Si no viene, usamos un fallback.
         const productToAdd: CartProduct = { 
           ...product, 
-          imageUrl: product.imageUrl || '/placeholder.jpg' 
+          imageUrl: product.imageUrl || product.image || '/placeholder.jpg' 
         };
 
         const updated = existing
