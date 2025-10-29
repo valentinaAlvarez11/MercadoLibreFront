@@ -1,11 +1,27 @@
 // app/cart/CartComponent.tsx
 'use client';
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { useAuthStore } from '@/store/authStore';
 import { useCartStore } from '@/store/cartStore'; 
 import CartProductList from '@/components/organisms/CartProductList';
 import CartSummary from '@/components/molecules/CartSumary';
 import { FaCheck, FaBolt, FaChevronRight, FaStar } from 'react-icons/fa';
+import Button from "@/components/atoms/ButtonAuth";
 
 const CartPageOrganism = () => {
+  const { isLoggedIn, user } = useAuthStore();
+  const router = useRouter();
+  useEffect(() => {
+    if (!isLoggedIn || !user) {
+      router.push('/login');
+    }
+  }, [isLoggedIn, user, router]);
+
+  if (!isLoggedIn || !user) {
+    return null;
+  }
+
   const { products } = useCartStore();
   
   // Cálculo del subtotal y el total (asumiendo que el precio en el store es un número)
@@ -32,12 +48,9 @@ const CartPageOrganism = () => {
           <p className="text-gray-600 mb-8">
             ¡Explora nuestra tienda para encontrar grandes ofertas!
           </p>
-          <button
-            onClick={() => window.location.href = '/'}
-            className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-normal hover:bg-blue-700 transition-colors shadow-sm"
-          >
+          <Button onClick={() => router.push('/')}>
             Continuar comprando
-          </button>
+          </Button>
         </div>
       </div>
     );

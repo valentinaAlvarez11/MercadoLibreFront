@@ -58,12 +58,13 @@ export default function CartProductItem({ item, onRemove, onIncrease, onDecrease
             </span>
             <button 
               onClick={onIncrease} 
+              disabled={item.quantity >= 50}
               className="p-2 text-gray-600 hover:bg-gray-100 text-sm"
             >
               +
             </button>
           </div>
-          <p className="text-xs text-gray-500">+{item.quantity + 50} disponibles</p>
+          <p className="text-xs text-gray-500">+{50 - item.quantity} disponibles</p>
         </div>
         
         {/* Precio */}

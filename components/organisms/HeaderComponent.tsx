@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { FaSearch, FaShoppingCart, FaBell } from 'react-icons/fa';
 import Link from 'next/link';
 import { MdLocationOn } from 'react-icons/md';
+import useLocation from '@/hooks/useLocation';
 import { useAuthStore } from '@/store/authStore';
 import { useRouter } from 'next/navigation';
 import Avatar from '@/components/atoms/Avatar';
@@ -15,6 +16,7 @@ export default function HeaderComponent() {
   const router = useRouter();
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [showFavoritos, setShowFavoritos] = useState(false);
+  const { openModal, department, municipality } = useLocation();
 
   return (
     <header className="w-full font-sans bg-[#ffe600]">
@@ -77,19 +79,26 @@ export default function HeaderComponent() {
         {/* Segunda fila: Ubicación | Navegación | Info usuario */}
         <div className="flex items-center justify-between pb-4">
           {/* Ubicación */}
-          <div className="flex items-center">
-            <MdLocationOn className="text-black text-xl mr-2" />
-            <span className="text-[#333333] text-sm">Enviar a Manizales</span>
-          </div>
+          <button type="button" onClick={openModal} className="flex items-center">
+            <MdLocationOn className="text-black text-2xl mr-2" />
+            {municipality ? (
+              <span className="text-[#333333] text-sm">Enviar a {municipality}</span>
+            ) : (
+              <div className="leading-tight text-left">
+                <div className="text-[#333333] text-xs">Ingresa tu</div>
+                <div className="text-[#333333] text-sm font-semibold -mt-0.5">ubicación</div>
+              </div>
+            )}
+          </button>
 
           {/* Links de navegación */}
           <div className="flex items-center gap-6">
-            <div className="flex items-center gap-1 cursor-pointer">
+          <Link href="/categorias" className="flex items-center gap-1 cursor-pointer">
               <span className="text-[#333333] text-sm font-normal">Categorías</span>
               <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M1 1.5L6 6.5L11 1.5" stroke="#333333" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
-            </div>
+            </Link>
             <Link href="/ofertas" className="text-[#333333] text-sm font-normal hover:text-blue-600 transition-colors">Ofertas</Link>
             {isLoggedIn && user ? (
               <Link href="/cupones" className="text-[#333333] text-sm font-normal hover:text-blue-600 transition-colors">Cupones</Link>
@@ -100,7 +109,7 @@ export default function HeaderComponent() {
               <div className="bg-[#3483FA] text-white text-xs px-2 py-0.5 rounded-full mb-1">NUEVO</div>
               <span className="text-[#333333] text-sm font-normal">Supermercado</span>
             </Link>
-            <span className="text-[#333333] text-sm font-normal cursor-pointer">Moda</span>
+            <Link href="/moda" className="text-[#333333] text-sm font-normal hover:text-blue-600 transition-colors">Moda</Link>
             {isLoggedIn && user ? (
               <Link href="/vender" className="text-[#333333] text-sm font-normal hover:text-blue-600 transition-colors">Vender</Link>
             ) : (

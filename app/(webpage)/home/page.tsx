@@ -1,7 +1,7 @@
 // app/(webpage)/home/page.tsx
 'use client';
 import { useState, useEffect } from 'react';
-import CardProducts, { ProductCardInfo } from '../../../components/molecules/CardProducts';
+import type { ProductCardInfo } from '@/interfaces/product';
 import ImageCarousel from "@/components/organisms/MercadoLibreCarrouselImages";
 import InitialCardsService from '@/components/organisms/InitialCardsService';
 import DailyDeal from '@/components/organisms/DailyDeal';
@@ -63,14 +63,16 @@ const HomePageClient = () => {
       </div>
       {/* Espacio para que los cards no se superpongan con el contenido siguiente */}
       <div className="h-[200px]" />
-      <main className="container mx-auto pt-0 px-4">
+      <main className="pt-0 px-4">
         {loading && <div className="text-center text-lg mt-8">Cargando productos...</div>}
         {error && <div className="text-center text-red-600 font-semibold mt-8">{error}</div>}
         
         {!loading && !error && products.length > 0 && (
-            <div className="flex flex-row gap-6">
-                <DailyDeal product={products[0]} />
-                <OffersCarousel products={products.slice(1, 10)} />
+            <div className="max-w-[1200px] mx-auto">
+              <div className="flex flex-row gap-6 justify-center">
+                  <DailyDeal product={products[0]} />
+                  <OffersCarousel products={products.slice(1, 10)} />
+              </div>
             </div>
         )}
       </main>
@@ -78,6 +80,15 @@ const HomePageClient = () => {
       {/* Nuevo contenedor para la SubscriptionCard, fuera del <main> */}
       <div className="max-w-[1200px] mx-auto px-4 mt-8">
         <SubscriptionCard />
+        <div className="mt-6">
+          <div className="rounded-lg overflow-hidden shadow-md">
+            <img
+              src="https://http2.mlstatic.com/D_NQ_803027-MLU74643615266_022024-OO.webp"
+              alt="Mercado Play - Series y películas también en TV"
+              className="w-full h-[280px] md:h-[340px] object-cover"
+            />
+          </div>
+        </div>
       </div>
 
     </div>
