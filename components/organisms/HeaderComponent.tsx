@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { FaSearch, FaShoppingCart, FaBell } from 'react-icons/fa';
 import Link from 'next/link';
 import { MdLocationOn } from 'react-icons/md';
+import useLocation from '@/hooks/useLocation';
 import { useAuthStore } from '@/store/authStore';
 import { useRouter } from 'next/navigation';
 import Avatar from '@/components/atoms/Avatar';
@@ -15,6 +16,7 @@ export default function HeaderComponent() {
   const router = useRouter();
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [showFavoritos, setShowFavoritos] = useState(false);
+  const { openModal, department, municipality } = useLocation();
 
   return (
     <header className="w-full font-sans bg-[#ffe600]">
@@ -75,10 +77,17 @@ export default function HeaderComponent() {
         {/* Segunda fila: Ubicación | Navegación | Info usuario */}
         <div className="flex items-center justify-between pb-4">
           {/* Ubicación */}
-          <div className="flex items-center">
-            <MdLocationOn className="text-black text-xl mr-2" />
-            <span className="text-[#333333] text-sm">Enviar a Manizales</span>
-          </div>
+          <button type="button" onClick={openModal} className="flex items-center">
+            <MdLocationOn className="text-black text-2xl mr-2" />
+            {municipality ? (
+              <span className="text-[#333333] text-sm">Enviar a {municipality}</span>
+            ) : (
+              <div className="leading-tight text-left">
+                <div className="text-[#333333] text-xs">Ingresa tu</div>
+                <div className="text-[#333333] text-sm font-semibold -mt-0.5">ubicación</div>
+              </div>
+            )}
+          </button>
 
           {/* Links de navegación */}
           <div className="flex items-center gap-6">
