@@ -3,11 +3,12 @@ import React, { useState } from "react";
 import InputComponents from "@/components/atoms/InputComponents";
 
 const initialState = {
-  name: "",
-  price: "",
-  rating: 0,
-  description: [""],
-  imageUrl: ""
+  name: "",
+  price: "",
+  rating: 0,
+  description: [""],
+  imageUrl: "",
+  stock: 1, 
 };
 
 export default function CreateProductPage() {
@@ -17,7 +18,8 @@ export default function CreateProductPage() {
   const [message, setMessage] = useState("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    const value = e.target.name === 'stock' ? Number(e.target.value) : e.target.value;
+    setForm({ ...form, [e.target.name]: value });
   };
 
   const handleDescChange = (idx: number, value: string) => {
@@ -42,12 +44,14 @@ export default function CreateProductPage() {
     const payload = {
       ...form,
       rating: Number(form.rating),
+      stock: form.stock,
       description: descInputs.filter(d => d.trim() !== "")
     };
     try {
       const res = await fetch("http://localhost:3000/createproduct", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        credentials: 'include', 
         body: JSON.stringify(payload)
       });
       const data = await res.json();
@@ -74,7 +78,9 @@ export default function CreateProductPage() {
 
         <label className="ml-label">Precio</label>
         <input name="price" value={form.price} onChange={handleChange} required className="ml-input" />
-
+        
+        <label className="ml-label">Unidades (Stock)</label>
+        <input name="stock" type="number" min="1" value={form.stock} onChange={handleChange} required className="ml-input" />
         <label className="ml-label">Rating</label>
         <input name="rating" type="number" step="0.1" min="0" max="5" value={form.rating} onChange={handleChange} required className="ml-input" />
 
